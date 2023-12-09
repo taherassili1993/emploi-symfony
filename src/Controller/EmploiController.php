@@ -12,6 +12,22 @@ use Symfony\Component\HttpKernel\Profiler\Profiler;
 
 class EmploiController extends AbstractController
 {
+    /**
+     *
+     * @Route("/mes-emplois", name="mes-emplois")
+     */
+    public function mesEmplois(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $emploiRepository = $this->getDoctrine()->getRepository(Emploi::class);
+
+        $user_id = $this->getUser()->getId();
+        $user = $repository->findOneById($user_id);
+        $emplois = $emploiRepository->findBy(['user' => $user]);
+
+        return $this->render('emploi/mes_emplois.html.twig', ['emplois' => $emplois]);
+    }
 
     /**
      *
@@ -62,7 +78,7 @@ class EmploiController extends AbstractController
             $em->persist($emploi);
             $em->flush();
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('mes-emplois');
         }
 
         return $this->render('emploi/ajouter_emploi.html.twig', ['emploi' => $emploi]);
@@ -70,26 +86,26 @@ class EmploiController extends AbstractController
 
     /**
      *
-     * @Route("/delete-formation/{id}", name="delete_formation")
+     * @Route("/delete-emploi/{id}", name="delete_emploi")
      */
-    public function deleteFormation(Request $request, $id = 0)
+    public function deleteEmploi(Request $request, $id = 0)
     {
-        /*$em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $fromationRepository = $this->getDoctrine()->getRepository(Formation::class);
+        $emploiRepository = $this->getDoctrine()->getRepository(Emploi::class);
         $user_id = $this->getUser()->getId();
         $user = $repository->findOneById($user_id);
-        $formation = $fromationRepository->findOneById($id);
-        if($formation)
+        $emploi = $emploiRepository->findOneById($id);
+        if($emploi)
         {
-            if($formation->getUser() == $user)
+            if($emploi->getUser() == $user)
             {
-                $em->remove($formation);
+                $em->remove($emploi);
                 $em->flush();
             }
         }
         // redirige la page
-        return $this->redirectToRoute('profil');*/
+        return $this->redirectToRoute('mes-emplois');
 
     }
 

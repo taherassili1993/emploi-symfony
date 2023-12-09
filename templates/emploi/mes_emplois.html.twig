@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}{% endblock%}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock%}
+
+{% block body %}
+    <style>
+        #mes-emplois
+        {
+            margin-top: 100px;
+            margin-bottom: 150px;
+        }
+    </style>
+
+    <section id="mes-emplois">
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-3'>
+                    <p>Bonjour M. {{ app.user.name }}</p>
+                    <p>Vous trouvez ici les emplois que vous ajouter. Vous pouvez le modifier ou le supprimer</p>
+                </div>
+
+                <div class='col-md-1'></div>
+
+                <div class='col-md-6'>
+                    <table class='table'>
+                        <th>Titre</th>
+                        <th>Type de contrat</th>
+                        <th>Salaire</th>
+                        <th></th>
+                        {% for emploi in emplois %}
+                        <tr>
+                            <td>{{ emploi.getTitre() }}</td>
+                            <td>{{ emploi.getContrat() }}</td>
+                            <td>{{ emploi.getSalaire() }}</td>
+                            <td>
+                                <a href="{{ path('ajouter-emploi', {'id': emploi.getId()}) }}" class='btn btn-primary btn-sm'>Modifier</a>
+
+                                <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-{{ emploi.getId() }}">Supprimer</a>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="delete-{{ emploi.getId() }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmation de suppression</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Êtes-vous sûr de vouloir supprimer cet emploi.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                                                <a href="{{ path('delete_emploi', {'id': emploi.getId()}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </row>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
