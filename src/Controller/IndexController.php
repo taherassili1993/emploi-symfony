@@ -18,17 +18,4 @@ class IndexController extends AbstractController
         return $this->render('index.html.twig', ['name' => 'hello world !!!']);
     }
 
-    /**
-     * @Route("/api/change-language", name="app_language_api", methods={"POST"})
-     */
-    public function register_api(Request $request): Response
-    {
-        $language = $request->get('language', 'fr');
-        $this->get('session')->set('language', $language);
-        $response = new Response( json_encode( ['success' => true] ) );
-        $response->headers->set( 'Content-Type', 'application/json' );
-
-        return $response;
-    }
-
 }

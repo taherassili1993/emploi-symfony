@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}{% endblock%}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock%}
+
+{% block body %}
+
+    <style>
+    #ajouter-emploi
+    {
+        margin-top: 100px;
+        margin-bottom: 150px;
+
+    }
+
+    h1.titre
+    {
+        font-size: 24px;
+        color: #338AFF;
+        margin-bottom: 20px;
+
+    }
+
+    #ajouter-emploi form input, #ajouter-emploi form textarea
+    {
+        width: 500px;
+        height: 50px;
+        padding-left: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 30px;
+
+    }
+
+    #ajouter-emploi form textarea
+    {
+        height: 400px;
+        padding-top: 20px;
+    }
+
+    #ajouter-emploi form input:focus, #ajouter-emploi form textarea:focus
+    {
+        outline: none;
+        box-shadow: none;
+        border: 1px solid #999;
+    }
+    </style>
+
+    <section id="ajouter-emploi">
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-3'></div>
+                <div class='col-md-6'>
+                    <h1 class='titre'>Ajouter emploi</h1>
+                    <form method='POST' {% if emploi.getId() %} action="{{ path('ajouter-emploi', {'id': emploi.getId()}) }}" {% else %}action="" {% endif %}>
+                        <div class='form-div'>
+                            <input name='titre' placeholder='Le titre' value="{{ emploi.getTitre() }}" required />
+                        </div>
+
+                        <div class='form-div'>
+                            <input name='societe' placeholder='Nom de societé' value="{{ emploi.getSociete() }}" required />
+                        </div>
+
+                        <div class='form-div'>
+                            <input name='contrat' placeholder='Type de contrat' value="{{ emploi.getContrat() }}" required />
+                        </div>
+
+                        <div class='form-div'>
+                            <input name='salaire' placeholder='Le salaire' value="{{ emploi.getSalaire() }}" />
+                        </div>
+
+                        <div class='form-div'>
+                            <input name='addresse' placeholder='Addresse de societe' value="{{ emploi.getAddresse() }}" required />
+                        </div>
+
+                        <div class='form-div'>
+                            <textarea name='description' placeholder="Description de l'emploi" required>{{ emploi.getDescription() }}</textarea>
+                        </div>
+
+                        <div class='form-div'>
+                            <button type='submit' class='btn btn-primary btn-sm'>Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
