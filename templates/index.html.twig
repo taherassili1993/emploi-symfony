@@ -24,14 +24,14 @@
 
             <div class="row owl-carousel">
 
-                {% for i in [1, 2, 3, 4, 5, 6, 7, 8] %}
-                    <div class="col-sm-12">
+                {% for emploi in emplois %}
+                    <div class="col-sm-12" style='margin-bottom: 150px;'>
                         <div>
-                            <div class="list-group-horizontal">
+                            <div class="list-group-horizontal" style='min-height: 280px;'>
 
                                 <div class="list-group-item-image">
                                     <div class="agence-image">
-                                        <a title="..." href="#">
+                                        <a title="..." href="{{ path('emploi', {'id': emploi.getId()}) }}">
 
                                             <img src="{{ asset('img/default-agence.jpg') }}" alt="">
 
@@ -41,10 +41,10 @@
 
                                 <div class="list-group-item">
                                     <div class="agence-info">
-                                        <h2><a href="#" class="agence-info-link">Developpeur full stack</a></h2>
+                                        <h2><a href="{{ path('emploi', {'id': emploi.getId()}) }}" class="agence-info-link">{{ emploi.getTitre() }}</a></h2>
 
                                         <div class="agence-desc">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae odio velit. Fusce tortor odio, laoreet eu lectus in, fermentum sollicitudin nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at felis diam.</p>
+                                            <p>{{ emploi.getDescription()|slice(0, 300) }}</p>
                                         </div>
 
                                     </div>

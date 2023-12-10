@@ -17,7 +17,12 @@ class IndexController extends AbstractController
      */
     public function index(Request $request)
     {
-        return $this->render('index.html.twig', ['name' => 'hello world !!!']);
+        $em = $this->getDoctrine()->getManager();
+        $emploiRepository = $this->getDoctrine()->getRepository(Emploi::class);
+
+        $emplois = $emploiRepository->findAll();
+
+        return $this->render('index.html.twig', ['emplois' => $emplois]);
     }
 
     /**
