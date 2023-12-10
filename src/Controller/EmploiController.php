@@ -123,5 +123,24 @@ class EmploiController extends AbstractController
         return $this->render('emploi/emplois.html.twig', ['emplois' => $emplois]);
     }
 
+    /**
+     *
+     * @Route("/emplois/{id}", name="emploi")
+     */
+    public function emploi(Request $request, $id = 0)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $emploiRepository = $this->getDoctrine()->getRepository(Emploi::class);
+
+        $emploi = $emploiRepository->findOneById($id);
+
+        if(! $emploi)
+        {
+            return $this->redirectToRoute('list-emploi');
+        }
+
+        return $this->render('emploi/emploi.html.twig', ['emploi' => $emploi]);
+    }
+
 
 }

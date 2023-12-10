@@ -33,20 +33,20 @@
         <div class='container'>
             <div class='row'>
                 <div class='col-md-3'>
-                    <p>Trouver un emploi sur notre app.</p>
-                    <p> {{ emplois|length }} emplois trouvés</p>
+                    <p>{{ emploi.getTitre() }}</p>
+                    <p>Type de contrat: {{ emploi.getContrat() }}</p>
+                    <p>Salaire: {{ emploi.getSalaire() }} DT</p>
+                    <p>Société: {{ emploi.getSociete() }}</p>
+                    <p>Addresse: {{ emploi.getAddresse() }}</p>
+                    <p>Ajouté le {{ emploi.getCreatedAt()|date('d-m-Y') }}</p>
                 </div>
 
                 <div class='col-md-1'></div>
 
                 <div class='col-md-6'>
-                    {% for emploi in emplois %}
                     <div class='single-emploi'>
-                        <h1><a href="{{ path('emploi', {'id': emploi.getId()}) }}">{{ emploi.getTitre() }}</a></h1>
-                        <p>{{ emploi.getDescription()|slice(0, 300) }}</p>
-                        <p>{{ emploi.getCreatedAt()|date('d-m-Y') }}</p>
+                        <p>{{ emploi.getDescription() }}</p>
                     </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
