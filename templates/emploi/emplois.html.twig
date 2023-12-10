@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}{% endblock%}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock%}
+
+{% block body %}
+    
+    <style>
+        #emplois
+        {
+            margin-top: 100px;
+            margin-bottom: 150px;
+        }
+
+        .single-emploi
+        {
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .single-emploi h1, .single-emploi a
+        {
+            font-size: 22px;
+            color: #999;
+            text-decoration: none;
+        }
+    </style>
+
+    <section id="emplois">
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-3'>
+                    <p>Trouver un emploi sur notre app.</p>
+                    <p> {{ emplois|length }} emplois trouvés</p>
+                </div>
+
+                <div class='col-md-1'></div>
+
+                <div class='col-md-6'>
+                    {% for emploi in emplois %}
+                    <div class='single-emploi'>
+                        <h1><a href='#'>{{ emploi.getTitre() }}</a></h1>
+                        <p>{{ emploi.getDescription()|slice(0, 300) }}</p>
+                        <p>{{ emploi.getCreatedAt()|date('d-m-Y') }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

@@ -109,4 +109,19 @@ class EmploiController extends AbstractController
 
     }
 
+    /**
+     *
+     * @Route("/emplois", name="list-emploi")
+     */
+    public function emplois(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $emploiRepository = $this->getDoctrine()->getRepository(Emploi::class);
+
+        $emplois = $emploiRepository->findAll();
+
+        return $this->render('emploi/emplois.html.twig', ['emplois' => $emplois]);
+    }
+
+
 }
